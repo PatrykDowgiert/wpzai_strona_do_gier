@@ -53,3 +53,33 @@ my-app/
 ├── index.html
 └── package.json
 ```
+## Testowanie
+
+### Test 1
+Aplikacja uruchomiła się poprawnie. Po kliknięciu w grafikę przenosi na podstronę z informacjami o grze
+ a po kliknięciu przycisku zagraj przenosi na stronę wybranej gry. Działa wyszukiwanie po nazwie, 
+ wyszukiwanie po kategoriach oraz losowanie losowej gry.
+
+### Test 2
+Aplikacja uruchomiła się poprawnie. Kliknięcie w grafikę gry przenosi na podstronę z informacjami o grze 
+a następnie po kliknięciu przycisku zagraj przenosi na stronę gry. 
+Wyszukiwanie po nazwie, wyszukiwanie po kategoriach oraz losowanie losowej gry działa poprawnie.
+
+### Test 3
+Aplikacja uruchomiła się poprawnie. Kliknięcie w grafikę przenosi na podstronę z informacjami o danej grze 
+a po kliknięciu przycisku zagraj przenosi do strony wybranej gry. Wyszukiwanie gry po nazwie, 
+wyszukiwanie po kategoriach oraz losowanie działa poprawnie.
+
+### Test 4
+Aplikacja uruchomiła się bez błędów. Po kliknięciu w grafikę następuje przeniesienie na podstronę z informacjami o grze 
+a po kliknięciu przycisku zagraj przenosi na stronę gry. 
+Wyszukiwanie po nazwie, wyszukiwanie po kategoriach i losowanie losowej gry działa bez bledów.
+
+### Test 5
+Aplikacja uruchomiła się poprawnie. Kliknięcie w grafikę przekierowuje na podstronę z informacjami o wybranej grze 
+a po kliknięciu przycisku zagraj przenosi do strony gry.
+ Wyszukiwanie po nazwie, wyszukiwanie po kategoriach oraz losowanie gry działaja bez bledow.
+
+### Podsumowanie
+Wszystkie 5 testów przeszło pomyślnie. Aplikacja działa poprawnie, uruchamia się bez błędów, 
+a wszystkie funkcje na stronie działają prawidłowo 
