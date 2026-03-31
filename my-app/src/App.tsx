@@ -34,7 +34,7 @@ const games = [
   { id: 27, name: 'Chess.com', category: 'Puzzle', image: '/CHESSCOM.png', url: 'https://www.chess.com/play' },
   { id: 28, name: 'Lichess', category: 'Puzzle', image: '/LICHESS.png', url: 'https://lichess.org' },
   { id: 29, name: 'Minesweeper', category: 'Puzzle', image: '/MINESWEEPER.png', url: 'https://minesweeper.online' },
-  { id: 30, name: 'Cupcakeria', category: 'Puzzle', image: '/2048CUPCAKES.png', url: 'https://https://www.crazygames.com/game/papas-cupcakeria' },
+  { id: 30, name: 'Cupcakeria', category: 'Puzzle', image: '/2048CUPCAKES.png', url: 'https://www.crazygames.com/game/papas-cupcakeria' },
   { id: 31, name: 'Splix.io', category: 'Akcja', image: '/SPLIXIO.png', url: 'https://splix.io' },
   { id: 32, name: 'Tanki Online', category: 'Akcja', image: '/TANKIONLINE.png', url: 'https://tankionline.com' },
   { id: 33, name: 'Powerline.io', category: 'Akcja', image: '/POWERLINEIO.png', url: 'https://powerline.io' },
