@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
 
+const categories = ['Wszystkie', 'Akcja', 'Puzzle', 'Wyścigi', 'Zręcznościowe', 'Sport', 'Strategia'];
+
 const games = [
   { id: 1, name: '2048', category: 'Puzzle', image: '/2048.png', url: 'https://classic.play2048.co/' },
   { id: 2, name: 'Slither.io', category: 'Akcja', image: '/SLITHERIO.png', url: 'https://slither.io/' },
@@ -32,7 +34,7 @@ const games = [
   { id: 27, name: 'Chess.com', category: 'Puzzle', image: '/placeholder.png', url: 'https://www.chess.com/play' },
   { id: 28, name: 'Lichess', category: 'Puzzle', image: '/placeholder.png', url: 'https://lichess.org' },
   { id: 29, name: 'Minesweeper', category: 'Puzzle', image: '/placeholder.png', url: 'https://minesweeper.online' },
-  { id: 30, name: '2048 Cupcakes', category: 'Puzzle', image: '/placeholder.png', url: 'https://www.crazygames.com/game/2048-cupcakes' },
+  { id: 30, name: 'Cupcakeria', category: 'Puzzle', image: '/placeholder.png', url: 'https://https://www.crazygames.com/game/papas-cupcakeria' },
   { id: 31, name: 'Splix.io', category: 'Akcja', image: '/placeholder.png', url: 'https://splix.io' },
   { id: 32, name: 'Tanki Online', category: 'Akcja', image: '/placeholder.png', url: 'https://tankionline.com' },
   { id: 33, name: 'Powerline.io', category: 'Akcja', image: '/placeholder.png', url: 'https://powerline.io' },
@@ -43,17 +45,20 @@ const games = [
 
 function App() {
   const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Wszystkie');
 
-  const filteredGames = games.filter(game =>
-    game.name.toLowerCase().includes(search.toLowerCase()) ||
-    game.category.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredGames = games.filter(game => {
+    const matchesSearch = game.name.toLowerCase().includes(search.toLowerCase()) ||
+      game.category.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = selectedCategory === 'Wszystkie' || game.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <div className="text-2xl font-bold text-purple-400">🎮 Gierki</div>
-        <div className="flex gap-4 text-sm text-gray-300">
+      <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4 sticky top-0 z-50">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-2xl font-bold text-purple-400">🎮 Gierki</div>
           <button
             onClick={() => {
               const randomGame = games[Math.floor(Math.random() * games.length)];
@@ -64,22 +69,40 @@ function App() {
             🎲 Losowa gra
           </button>
         </div>
-        <input
-          type="text"
-          placeholder="Szukaj gry..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-purple-500"
-        />
+        <div className="flex flex-wrap gap-2">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-lg text-sm transition ${
+                selectedCategory === category
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </nav>
-
       <div className="bg-gradient-to-r from-purple-900 to-gray-950 px-6 py-16 text-center">
         <h1 className="text-5xl font-bold mb-4">Witaj na <span className="text-purple-400">Gierki</span></h1>
         <p className="text-gray-400 text-lg">Setki darmowych gier przeglądarkowych w jednym miejscu</p>
       </div>
 
       <main className="px-6 py-10">
-        <h2 className="text-2xl font-bold mb-6 text-purple-400">🔥 Popularne gry</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-purple-400">
+            {selectedCategory === 'Wszystkie' ? '🔥 Wszystkie gry' : `🎮 ${selectedCategory}`}
+          </h2>
+          <input
+            type="text"
+            placeholder="Szukaj gry..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {filteredGames.map((game) => (
             <Link
