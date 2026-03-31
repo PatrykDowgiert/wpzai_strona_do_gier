@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './index.css';
 
 const games = [
@@ -14,6 +15,30 @@ const games = [
   { id: 10, name: 'Diep.io', category: 'Akcja', image: '/DIEPIO.png', url: 'https://diep.io/' },
   { id: 11, name: 'Cookie Clicker', category: 'Puzzle', image: '/COOKIECLICKER.png', url: 'https://orteil.dashnet.org/cookieclicker/' },
   { id: 12, name: 'A Dark Room', category: 'Puzzle', image: '/ADARKROOM.png', url: 'https://adarkroom.doublespeakgames.com/' },
+  { id: 13, name: 'Krunker.io', category: 'Zręcznościowe', image: '/KRUNKERIO.png', url: 'https://krunker.io/' },
+  { id: 14, name: 'Shell Shockers', category: 'Akcja', image: '/SHELLSHOCKERS.png', url: 'https://shellshocker.io/' },
+  { id: 15, name: 'Wordle', category: 'Puzzle', image: '/WORDLE.png', url: 'https://www.nytimes.com/games/wordle/index.html' },
+  { id: 16, name: 'Gartic Phone', category: 'Akcja', image: '/GARTICPHONE.png', url: 'https://garticphone.com/' },
+  { id: 17, name: 'Stumble Guys', category: 'Akcja', image: '/STUMBLEGUYS.png', url: 'https://www.stumbleguys.com/' },
+  { id: 18, name: 'Minecraft Classic', category: 'Akcja', image: '/MINECRAFTCLASSIC.png', url: 'https://classic.minecraft.net' },
+  { id: 19, name: 'Slope', category: 'Akcja', image: '/SLOPE.png', url: 'https://slope-game.com' },
+  { id: 20, name: 'Run 3', category: 'Akcja', image: '/RUN3.png', url: 'https://www.crazygames.com/game/run-3' },
+  { id: 21, name: 'Flappy Bird', category: 'Zręcznościowe', image: '/placeholder.png', url: 'https://flappybird.io' },
+  { id: 22, name: 'Sudoku', category: 'Puzzle', image: '/placeholder.png', url: 'https://sudoku.com' },
+  { id: 23, name: 'Paper.io 2', category: 'Akcja', image: '/placeholder.png', url: 'https://paper-io.com' },
+  { id: 24, name: 'Hole.io', category: 'Akcja', image: '/placeholder.png', url: 'https://hole-io.com' },
+  { id: 25, name: 'Among Us Online', category: 'Akcja', image: '/placeholder.png', url: 'https://www.crazygames.com/game/among-us-online-edition' },
+  { id: 26, name: 'Retro Bowl', category: 'Sport', image: '/placeholder.png', url: 'https://www.crazygames.com/game/retro-bowl' },
+  { id: 27, name: 'Chess.com', category: 'Puzzle', image: '/placeholder.png', url: 'https://www.chess.com/play' },
+  { id: 28, name: 'Lichess', category: 'Puzzle', image: '/placeholder.png', url: 'https://lichess.org' },
+  { id: 29, name: 'Minesweeper', category: 'Puzzle', image: '/placeholder.png', url: 'https://minesweeper.online' },
+  { id: 30, name: '2048 Cupcakes', category: 'Puzzle', image: '/placeholder.png', url: 'https://www.crazygames.com/game/2048-cupcakes' },
+  { id: 31, name: 'Splix.io', category: 'Akcja', image: '/placeholder.png', url: 'https://splix.io' },
+  { id: 32, name: 'Tanki Online', category: 'Akcja', image: '/placeholder.png', url: 'https://tankionline.com' },
+  { id: 33, name: 'Powerline.io', category: 'Akcja', image: '/placeholder.png', url: 'https://powerline.io' },
+  { id: 34, name: 'Lordz.io', category: 'Strategia', image: '/placeholder.png', url: 'https://lordz.io' },
+  { id: 35, name: 'Surviv.io', category: 'Akcja', image: '/placeholder.png', url: 'https://surviv.io' },
+  { id: 36, name: 'Zombs Royale', category: 'Akcja', image: '/placeholder.png', url: 'https://zombsroyale.io' },
 ];
 
 function App() {
@@ -57,11 +82,9 @@ function App() {
         <h2 className="text-2xl font-bold mb-6 text-purple-400">🔥 Popularne gry</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {filteredGames.map((game) => (
-            <a
+            <Link
               key={game.id}
-              href={game.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              to={`/game/${game.id}`}
               className="bg-gray-800 rounded-xl overflow-hidden cursor-pointer hover:scale-105 hover:ring-2 hover:ring-purple-500 transition-all block"
             >
               <img src={game.image} alt={game.name} className="w-full h-28 object-cover" />
@@ -69,7 +92,7 @@ function App() {
                 <p className="text-sm font-semibold">{game.name}</p>
                 <p className="text-xs text-gray-400">{game.category}</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
         {filteredGames.length === 0 && (
