@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 
+// Tablica zawierająca wszystkie gry wraz z ich danymi (opis, obraz, link)
 const games = [
   { id: 1, name: '2048', category: 'Puzzle', image: '/2048.png', url: 'https://classic.play2048.co/', description: 'Kultowa gra logiczna, w której przesuwasz kostki z cyframi, aby uzyskać 2048. Prosta w obsłudze, ale wymaga strategicznego myślenia.' },
   { id: 2, name: 'Slither.io', category: 'Akcja', image: '/SLITHERIO.png', url: 'https://slither.io/', description: 'Wciel się w węża i zbieraj kolorowe kuleeczki, aby rosnac. Uważaj, bo inne węże mogą Cię zjeść!' },
@@ -39,16 +40,26 @@ const games = [
   { id: 36, name: 'Zombs Royale', category: 'Akcja', image: '/placeholder.png', url: 'https://zombsroyale.io', description: 'Kolorystyczna gra battle royale. Skacz na mapę, zbieraj broń i walcz o przetrwanie.' },
 ];
 
+// Komponent odpowiedzialny za wyświetlanie szczegółów wybranej gry
 function GamePage() {
+
+  // Pobranie parametru id z adresu URL
   const { id } = useParams();
+
+  // Wyszukanie gry na podstawie id przekazanego w URL
   const game = games.find(g => g.id === parseInt(id || ''));
 
+  // Jeśli gra nie została znaleziona, wyświetlany jest komunikat błędu
   if (!game) {
     return (
       <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-red-500 mb-4">Gra nie znaleziona</h1>
-          <Link to="/" className="text-purple-400 hover:text-purple-300">← Wróć do strony głównej</Link>
+
+          {/* Link powrotu do strony głównej */}
+          <Link to="/" className="text-purple-400 hover:text-purple-300">
+            ← Wróć do strony głównej
+          </Link>
         </div>
       </div>
     );
@@ -56,31 +67,48 @@ function GamePage() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
+
+      {/* Pasek nawigacyjny */}
       <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
         <Link to="/" className="text-2xl font-bold text-purple-400 hover:text-purple-300 transition">
           🎮 Gierki
         </Link>
       </nav>
 
+      {/* Główna sekcja strony */}
       <main className="max-w-4xl mx-auto px-6 py-10">
+
+        {/* Link powrotu do listy gier */}
         <Link to="/" className="text-gray-400 hover:text-white mb-6 inline-block">
           ← Wróć do gier
         </Link>
 
+        {/* Karta z informacjami o grze */}
         <div className="bg-gray-900 rounded-2xl overflow-hidden">
+
+          {/* Obraz gry */}
           <img 
             src={game.image} 
             alt={game.name} 
             className="w-full h-64 object-cover"
           />
+
           <div className="p-8">
+
+            {/* Nazwa gry i kategoria */}
             <div className="flex items-center gap-4 mb-4">
               <h1 className="text-4xl font-bold">{game.name}</h1>
-              <span className="bg-purple-600 px-3 py-1 rounded-full text-sm">{game.category}</span>
+              <span className="bg-purple-600 px-3 py-1 rounded-full text-sm">
+                {game.category}
+              </span>
             </div>
+
+            {/* Opis gry */}
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
               {game.description}
             </p>
+
+            {/* Przycisk otwierający grę w nowej karcie */}
             <a
               href={game.url}
               target="_blank"
@@ -96,4 +124,5 @@ function GamePage() {
   );
 }
 
+// Eksport komponentu, aby mógł być używany w innych częściach aplikacji
 export default GamePage;
