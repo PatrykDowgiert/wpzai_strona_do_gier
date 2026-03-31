@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
 
+// Tablica kategorii gier używana do filtrowania
 const categories = ['Wszystkie', 'Akcja', 'Puzzle', 'Wyścigi', 'Zręcznościowe', 'Sport', 'Strategia'];
 
+// Tablica obiektów reprezentujących gry (dane statyczne aplikacji)
 const games = [
   { id: 1, name: '2048', category: 'Puzzle', image: '/2048.png', url: 'https://classic.play2048.co/' },
   { id: 2, name: 'Slither.io', category: 'Akcja', image: '/SLITHERIO.png', url: 'https://slither.io/' },
@@ -43,22 +45,42 @@ const games = [
   { id: 36, name: 'Zombs Royale', category: 'Akcja', image: '/ZOMBSROYALE.png', url: 'https://zombsroyale.io' },
 ];
 
+// Główny komponent aplikacji odpowiedzialny za wyświetlanie listy gier oraz filtrowanie
 function App() {
+
+  // Stan przechowujący tekst wyszukiwania wpisany przez użytkownika
   const [search, setSearch] = useState('');
+
+  // Stan przechowujący aktualnie wybraną kategorię
   const [selectedCategory, setSelectedCategory] = useState('Wszystkie');
 
+  // Filtrowanie gier na podstawie wyszukiwania oraz wybranej kategorii
   const filteredGames = games.filter(game => {
-    const matchesSearch = game.name.toLowerCase().includes(search.toLowerCase()) ||
+
+    // Sprawdza czy nazwa gry lub kategoria zawiera wpisany tekst
+    const matchesSearch =
+      game.name.toLowerCase().includes(search.toLowerCase()) ||
       game.category.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = selectedCategory === 'Wszystkie' || game.category === selectedCategory;
+
+    // Sprawdza czy gra należy do wybranej kategorii
+    const matchesCategory =
+      selectedCategory === 'Wszystkie' || game.category === selectedCategory;
+
+    // Zwraca tylko gry spełniające oba warunki
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
+
+      {/* Pasek nawigacyjny aplikacji */}
       <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4 sticky top-0 z-50">
         <div className="flex items-center justify-between mb-4">
+
+          {/* Logo / nazwa aplikacji */}
           <div className="text-2xl font-bold text-purple-400">🎮 Gierki</div>
+
+          {/* Przycisk losujący grę i otwierający ją w nowej karcie */}
           <button
             onClick={() => {
               const randomGame = games[Math.floor(Math.random() * games.length)];
@@ -69,6 +91,8 @@ function App() {
             🎲 Losowa gra
           </button>
         </div>
+
+        {/* Przyciski wyboru kategorii */}
         <div className="flex flex-wrap gap-2">
           {categories.map(category => (
             <button
@@ -85,16 +109,29 @@ function App() {
           ))}
         </div>
       </nav>
+
+      {/* Sekcja powitalna */}
       <div className="bg-gradient-to-r from-purple-900 to-gray-950 px-6 py-16 text-center">
-        <h1 className="text-5xl font-bold mb-4">Witaj na <span className="text-purple-400">Gierki</span></h1>
-        <p className="text-gray-400 text-lg">Setki darmowych gier przeglądarkowych w jednym miejscu</p>
+        <h1 className="text-5xl font-bold mb-4">
+          Witaj na <span className="text-purple-400">Gierki</span>
+        </h1>
+        <p className="text-gray-400 text-lg">
+          Setki darmowych gier przeglądarkowych w jednym miejscu
+        </p>
       </div>
 
+      {/* Główna sekcja z listą gier */}
       <main className="px-6 py-10">
         <div className="flex items-center justify-between mb-6">
+
+          {/* Nagłówek pokazujący aktualną kategorię */}
           <h2 className="text-2xl font-bold text-purple-400">
-            {selectedCategory === 'Wszystkie' ? '🔥 Wszystkie gry' : `🎮 ${selectedCategory}`}
+            {selectedCategory === 'Wszystkie'
+              ? '🔥 Wszystkie gry'
+              : `🎮 ${selectedCategory}`}
           </h2>
+
+          {/* Pole wyszukiwania gier */}
           <input
             type="text"
             placeholder="Szukaj gry..."
@@ -103,14 +140,21 @@ function App() {
             className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
+
+        {/* Siatka z kafelkami gier */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {filteredGames.map((game) => (
+
+            // Link do strony konkretnej gry
             <Link
               key={game.id}
               to={`/game/${game.id}`}
               className="bg-gray-800 rounded-xl overflow-hidden cursor-pointer hover:scale-105 hover:ring-2 hover:ring-purple-500 transition-all block"
             >
+              {/* Obrazek gry */}
               <img src={game.image} alt={game.name} className="w-full h-28 object-cover" />
+
+              {/* Informacje o grze */}
               <div className="p-2">
                 <p className="text-sm font-semibold">{game.name}</p>
                 <p className="text-xs text-gray-400">{game.category}</p>
@@ -118,12 +162,17 @@ function App() {
             </Link>
           ))}
         </div>
+
+        {/* Komunikat gdy brak wyników */}
         {filteredGames.length === 0 && (
-          <p className="text-center text-gray-400 mt-8">Nie znaleziono gier</p>
+          <p className="text-center text-gray-400 mt-8">
+            Nie znaleziono gier
+          </p>
         )}
       </main>
     </div>
   );
 }
 
+// Eksport głównego komponentu aplikacji
 export default App;
